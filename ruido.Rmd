@@ -1,30 +1,107 @@
 ---
 title: "Práctica de ruido"
 output:
-  pdf_document: default
-  html_notebook: default
   word_document: default
+  html_notebook: default
+  pdf_document: default
+  html_document: default
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+## 1. INTRODUCCIÓN TEÓRICA
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+Experimentalmente se comprueba que las variaciones de sensación sonora no son proporcionales a las variaciones de intensidad del sonido que llega al oído. Es decir, si al oído llegan dos estímulos tales que uno es el doble que el otro, las dos sensaciones que inducen no guardan la misma proporción entre ellas. De hecho, el estímulo ($E$) y la sensación ($S$) están relacionados por la llamada ley de Weber-Fechner, que se expresa por la ecuación:
+
+$$S=k \cdot log E$$
+
+Derivando esta ecuación se comprueba que las variaciones de sensaciones son proporcionales a los incrementos relativos ($dE$) de los estímulos:
+
+$$dS=k \frac{dE}{E}$$
+
+Por eso, en acústica se utiliza una escala de intensidades relativas, utilizando como unidad el Belio, que se define como el incremento que corresponde a una relación de intensidades de 1:10, es decir:
+
+$$1 Belio = log\frac{10 I_i}{I_i}$$
+
+Lo que implica que el número de Belios, correspondiente a una relación de intensidades $I_2/I_1$, se determina mediante la expresión:
+
+$$n^o de Belios = log\frac{I_2}{I_1}$$
+
+En consecuencia, se define una escala logarítmica que relaciona intensidades relativas.
+
+Entonces, eligiendo una intensidad de referencia $I_0$ = 10$^{-12}$ W$\cdot$m$^{-2}$ (que aproximadamente corresponde al umbral de percepción de un sonido de frecuencia 1000 Hz) se obtiene una escala absoluta de intensidades dada por:
+
+$$L_i = log\frac{I_i}{I_0}$$
+
+Así, los valores extremos son:
+
+Máximo ($M$):
+$$L_M = log\frac{I_M}{I_0}=log \frac{100 \; W \cdot m^{-2}}{10^{-12}\;  W \cdot m^{-2}}=14 \; Belios $$
+
+Mínimo ($m$):
+$$L_m = log\frac{I_0}{I_0}=log \; 1=0 \; Belios$$
+
+De esta manera se obtiene una escala de niveles de intensidad acústica comprendido entre 0 y 14 Belios, que es un intervalo menor que si se utilizara una escala en W$\cdot$m$^{-2}$ (de $10^{-12}$ a $10^2$). 
+
+Como el Belio es una unidad demasiado grande para las intensidades acústicas normales, la unidad que se utiliza de forma general es el decibelio (dB) que es la décima parte del Belio. 
+En consecuencia, el nivel absoluto de una intensidad $I_i$ expresado en dB será:
+
+$$L_i = 10 \cdot log\frac{I_i}{I_0}$$
+
+La expresión del nivel de intensidad puede adoptar distintas formas en función de los parámetros que intervienen en su medida. Así, se puede expresar en función de la potencia de la fuente ($W$), de la distancia ($r$) o de la presi\'on ($p$), de forma que:
+
+$$L_i = 10 \cdot log\frac{I_i}{I_0}=10 \cdot log \frac{W_i / 4 \pi r^2}{W_0 / 4 \pi r^2} =
+10 \cdot log \frac{W_i}{W_0}=10 \cdot log \frac{p_i^2/ \rho c}{p^2_0 / \rho c} =
+20 \cdot \frac{p_i}{p_0}$$
+
+## 2. Operaciones con niveles acústicos en decibelios
+
+Como la unidad dB tiene un carácter logarítmico, para operar con magnitudes que están expresadas en dB hay que observar ciertas precauciones, relacionadas con las operaciones logarítmicas.
+
+La intensidad sonora $I_t$ resultado de varias fuentes $I_i$ se puede calcular directamente mediante $I_t=\sum I_i$. Teniendo en cuenta que la definici\'on  de los logaritmos dice que $a=log\; b \Leftrightarrow 10^a=b$, podemos expresar la relaci\'on $L_i \Leftrightarrow I_i$
+como:
+
+$$L_i = 10 \cdot log\frac{I_i}{I_0} \Leftrightarrow \frac{L_i}{10}= log\frac{I_i}{I_0}  
+\Leftrightarrow 10^{\frac{L_i}{10}}=\frac{I_i}{I_0}$$
+
+Al pasar a la escala logarítmica, se obtiene lo siguiente:
+
+$$L_t= 10 \cdot log\frac{I_t}{I_0}=10 \cdot log \frac{\sum{I_i}}{I_0} =
+10 \cdot log \sum(\frac{I_i}{I_0})= 10 \cdot log \sum 10^\frac{L_i}{10}$$
+
+Por ejemplo, el nivel de intensidad o presi\'on ac\'ustica de tres señales de 40, 50 y 60 dB resulta:
+
+$$L_t=10 \cdot log(10^4+10^5+10^6) = 60.45 dB$$
+
+Esto supone que el resultado de la suma de varias fuentes sonoras es un nivel acústico muy próximo al de la fuente más intensa.
+
+
+
+
+El objetivo de la práctica es calcular el nivel de ruido equivalente para cada día de la semana.
+
+##1. Cargo las librerías necesarias
 
 ```{r}
 require("gdata")
 library(gdata)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+Leo los archivos .xls que tengo en el directorio
+
 ```{r}
 rlun<-read.xls("lun_cuba_10min.xls",header=FALSE)
 ```
+
+Observo el objeto creado *rlun*
 
 ```{r}
 head(rlun)
 ```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+Pregunta:
+
+* ¿Qué significa el comando 'head'?
+* ¿Qué clase de objeto es *rlun*?
+
 
 Asigno los nombres a las columnas del 'data.frame'.
 ```{r}
@@ -41,6 +118,8 @@ ts.plot(rlun[2], type='o', ylab='intensidad')
 
 La función ts.plot considera el que el argumento que se le introduce es una series temporal y lo representa como tal. Esta función acepta como argumentos 'type' para cambiar el tipo de representación y distintos argumentos para insertar el título y el nombre en los ejes.
 
+* Pregunta: Haz diferentes pruebas del tipo de gráfica. Cambia colores o maneras de representar.
+
 Puedo utilizar también la funcín 'plot' del base de R. En este caso, tengo que indicar los valores de x e y que quiero representar.
 
 ```{r}
@@ -49,7 +128,9 @@ plot(rlun[1:144,2], type='b', ylab='intensidad', xlab='time index')
 
 ## 4. Cálculo de índices de ruido
 
-Nivel de ruido equivalente diario: Leqdiario
+**Nivel de ruido equivalente diario**: Leqdiario
+
+$Leq=1+3^2$
 
 ```{r}
 t1<-10^(rlun[2]/10)

@@ -1,0 +1,303 @@
+\documentclass[a4paper,12pt]{article}
+%\documentstyle[10pt]{article}
+\usepackage[spanish]{babel} %para que ponga la fecha en castellano
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{colortbl}
+%\usepackage[draft]{hyperref}
+\usepackage{hyperref}
+\oddsidemargin -0.3 true cm
+\topmargin -1.0 true cm
+\textheight 23.5 true cm
+\textwidth 16.5 true cm
+%\onehalfspacing
+\begin{document}
+\spanishsignitems
+\definecolor{grey}{rgb}{0.9,0.9,0.9} %gris
+
+
+%gestyle{fancy}
+\pagestyle{fancy}
+\fancyfoot[C]{} % para que en el pie no ponga los numeros de pagina
+\headheight=85pt %para cambiar el tamaño del encabezado
+\fancyhead[L] %la "L" indica a la izquierda
+{
+\begin{minipage}{2.0cm}
+\includegraphics[width=0.9\textwidth]{logouclm_1_bn.jpg}
+%\end{minipage}
+%\begin{minipage}{5.5cm}
+%\tiny %tamaño de letra pequeño
+%{
+%\textsf
+%{
+%Universidad de Castilla-La Mancha\\
+%Escuela de Arquitectura de Toledo}}
+\end{minipage}}
+\fancyhead[C] %la "C" indica al centro
+{
+\textsf{\textbf{RADIACI\'ON Y RUIDO\\CURSO 2018-2019}\\
+\vspace{0.2cm}
+%Area de F\'{\i}sica de la Tierra\\
+%Pr\'actica 2\\
+\vspace{0.2cm}
+\underline{C\'alculo de diversos \'indices de ruido en una zona urbana}
+\underline{de Toledo a lo largo de una semana tipo}
+}} %textsf es un tipo de letra
+
+\fancyhead[R] %la "R" indica a la derecha
+{
+\small
+{
+\textsf
+{
+Profesores\\ \textbf{Enrique S\'anchez}\\
+\textbf{Clemente Gallardo}\\
+\textbf{Claudia Guti\'errez}
+}}}
+
+\vspace{1.5cm}
+
+\section*{Introducci\'on te\'orica:}
+Experimentalmente se comprueba que las variaciones de sensaci\'on sonora no son 
+proporcionales a las variaciones de intensidad del sonido que llega al o\'{\i}do. 
+Es decir, si al o\'{\i}do llegan dos est\'{\i}mulos tales que uno es el doble que el otro, 
+las dos sensaciones que inducen no guardan la misma proporci\'on entre ellas. De hecho, 
+el est\'{\i}mulo ($E$) y la sensaci\'on ($S$) est\'an relacionados por la llamada ley de 
+Weber-Fechner, que se expresa por la ecuaci\'on:
+
+\begin{equation}
+S=k \cdot log E
+\end{equation}
+
+Derivando esta ecuaci\'on se comprueba que las variaciones de sensaciones son 
+proporcionales a los incrementos relativos ($dE$) de los est\'{\i}mulos:
+
+\begin{equation}
+dS=k \frac{dE}{E}
+\end{equation}
+
+Por eso, en ac\'ustica se utiliza una escala de intensidades relativas, utilizando como 
+unidad el Belio, que se define como el incremento que corresponde a una relaci\'on de 
+intensidades de 1:10, es decir:
+
+\begin{equation}
+1 Belio = log\frac{10 I_i}{I_i}
+\end{equation}
+
+Lo que implica que el n\'umero de Belios, correspondiente a una relaci\'on de 
+intensidades $I_2/I_1$, se determina mediante la expresi\'on:
+
+\begin{equation}
+n^o de Belios = log\frac{I_2}{I_1}
+\end{equation}
+
+En consecuencia, se define una escala logar\'{\i}tmica que relaciona intensidades relativas. 
+Entonces, eligiendo una intensidad de referencia $I_0$ = 10$^{-12}$ W$\cdot$m$^{-2}$ 
+(que aproximadamente corresponde al umbral de percepci\'on de un sonido de frecuencia 
+1000 Hz) se obtiene una escala absoluta de intensidades dada por:
+
+\begin{equation}
+L_i = log\frac{I_i}{I_0}
+\end{equation}
+
+As\'{\i}, los valores extremos son:
+
+M\'aximo ($M$):
+\begin{equation}
+L_M = log\frac{I_M}{I_0}=log \frac{100 \; W \cdot m^{-2}}{10^{-12}\;  W \cdot m^{-2}}=14 \; Belios 
+\end{equation}
+
+M\'{\i}nimo ($m$):
+\begin{equation}
+L_m = log\frac{I_0}{I_0}=log \; 1=0 \; Belios 
+\end{equation}
+
+De esta manera se obtiene una escala de niveles de intensidad ac\'ustica comprendido entre 
+0 y 14 Belios, que es un intervalo menor que si se utilizara una escala en W$\cdot$m$^{-2}$
+(de $10^{-12}$ a $10^2$). 
+De todas formas, como el Belio es una unidad demasiado grande para las intensidades 
+ac\'usticas normales, la unidad que se utiliza de forma general es el 
+decibelio (dB) que es la d\'ecima parte del Belio. En consecuencia, el nivel absoluto de 
+una intensidad $I_i$ expresado en dB ser\'a:
+
+\begin{equation}
+L_i = 10 \cdot log\frac{I_i}{I_0}
+\end{equation}
+
+La expresi\'on del nivel de intensidad puede adoptar distintas formas en 
+funci\'on de los pa\-r\'a\-me\-tros que intervienen en su medida. As\'{\i}, se 
+puede expresar en funci\'on de la potencia de la fuente ($W$), de la 
+distancia ($r$) o de la presi\'on ($p$), de forma que:
+
+\begin{equation}
+L_i = 10 \cdot log\frac{I_i}{I_0}=10 \cdot log \frac{W_i / 4 \pi r^2}{W_0 / 4 \pi r^2}=
+10 \cdot log \frac{W_i}{W_0}=10 \cdot log \frac{p_i^2/ \rho c}{p^2_0 / \rho c}=
+20 \cdot \frac{p_i}{p_0}
+\end{equation}
+
+\subsection*{Operaciones con niveles ac\'usticos en decibelios}
+
+Como la unidad dB tiene un car\'acter logar\'{\i}tmico, para operar con magnitudes que 
+est\'an expresadas en dB hay que observar ciertas precauciones, relacionadas
+con las operaciones logar\'{\i}tmicas.
+La intensidad sonora $I_t$ resultado de varias fuentes $I_i$ se puede calcular
+directamente mediante $I_t=\sum I_i$. Teniendo en cuenta que la definici\'on  de los logaritmos 
+dice que $a=log\; b \Leftrightarrow 10^a=b$, podemos expresar la relaci\'on $L_i \Leftrightarrow I_i$
+como
+
+\begin{equation}
+L_i = 10 \cdot log\frac{I_i}{I_0} \Leftrightarrow \frac{L_i}{10}= log\frac{I_i}{I_0}  
+\Leftrightarrow 10^{\frac{L_i}{10}}=\frac{I_i}{I_0}
+\end{equation}
+
+Al pasar a la escala logar\'{\i}tmica, se obtiene lo siguiente:
+
+%As\'{\i}, la suma 
+%de niveles ac\'usticos en dB debidos a diversas fuentes de ruido se realiza de 
+%la siguiente manera:
+
+
+\begin{equation}
+L_t= 10 \cdot log\frac{I_t}{I_0}=10 \cdot log \frac{\sum{I_i}}{I_0}=
+10 \cdot log \sum(\frac{I_i}{I_0})= 10 \cdot log \sum 10^\frac{L_i}{10}
+\end{equation}
+%L_t=\sum L_i=\sum [  10 \cdot log\frac{I_i}{I_0}]=\sum[10 \cdot log (10^\frac{L_i}{10})]=
+%10 \cdot log [\sum 10^\frac{L_i}{10} ]
+
+
+Por ejemplo, el nivel de intensidad o presi\'on ac\'ustica de tres se\~nales de 
+40, 50 y 60 dB resulta:
+
+\begin{equation}
+L_t=10 \cdot log(10^4+10^5+10^6)=60.45 dB
+\end{equation}
+
+Esto supone que el resultado de la suma de varias fuentes sonoras es un nivel 
+ac\'ustico muy pr\'oximo al de la fuente m\'as intensa.
+
+
+\section*{\'Indices ac\'usticos}
+
+El objetivo de estos \'{\i}ndices es valorar de forma cuantitativa la posible 
+molestia que provocan los ruidos ambientales de muy diversa procedencia, y por 
+tanto de intensidades y frecuencias muy variables.
+
+\subsection*{a) Nivel continuo equivalente ($L_{eq}$):}
+
+Cuando se consideran niveles que var\'{\i}an temporalmente $L(t)$, como ser\'{\i}a 
+por ejemplo el ruido de tr\'afico rodado, se utiliza el llamado nivel continuo 
+equivalente ($L_{eq}$), que se define como el nivel en $dB$ correspondiente al promedio de 
+la cantidad de energ\'{\i}a ac\'ustica variable durante un periodo de tiempo 
+$T$, cuya ecuaci\'on matem\'atica es:
+
+\begin{equation}
+L_{eq}=10 \cdot log [ \frac{1}{T} \int_0^T 10^\frac{L(t)}{10} dt ]
+\end{equation}
+
+que se puede calcular de forma aproximada mediante la expresi\'on:
+
+\begin{equation}
+L_{eq}=10 \cdot log [ \frac{1}{T} \sum \left(t_i \cdot 10^\frac{L_i}{10} \right)]
+\end{equation}
+
+siendo $t_i$ los tiempos de observaci\'on durante los cuales el nivel sonoro $L_i$
+se mantiene en un intervalo de $\pm$ 2 $dB$.
+
+\underline{\it Ejemplo:}
+
+?`Cu\'al es el nivel continuo equivalente correspondiente al ruido de tr\'afico observado 
+a lo largo de un d\'{\i}a en una determinada calle urbana con la siguiente 
+distribuci\'on de niveles sonoros: 85 dB durante 4 horas, 90 dB durante 2 horas, 
+80 dB durante 10 horas y 65 dB durante 8 horas?
+
+Soluci\'on:
+
+\begin{equation}
+L=10 \cdot log(\frac{4 \cdot 10^{8.5}+2 \cdot 10^9+ 10 \cdot 10^8 + 8 \cdot 10^{6.5}}{24})=82.52 dB
+\end{equation}
+
+\subsection*{b) Nivel d\'{\i}a-tarde-noche ($L_{den}$)}
+
+Este criterio se establece a causa de la necesidad de evaluar de diferente forma 
+los niveles de ruido urbano durante el d\'{\i}a, la tarde y la la noche, penalizando los 
+ruidos nocturnos por estimar que la molestia que producen es mayor. Su 
+valor se calcula con la ecuaci\'on:
+
+\begin{equation}
+	L_{den}=10 \cdot log[\frac{12 \cdot 10^{L_d/10}+ 4 \cdot 10^{(L_e+5)/10} + 8 \cdot 10^{(L_n+10)/10}}{24}]
+\end{equation}
+
+donde $L_d$ representa el nivel sonoro equivalente para el periodo de 
+d\'{\i}a, $L_e$ para el periodo de tarde y  $L_n$ para el periodo nocturno.
+Para saber exactamente los periodos correspondientes a cada tramo horario,
+consulta la ordenanza municipal de Toledo, por ejemplo, en su art\'{\i}culo 55.3,
+o en el Anexo I.A.1.
+
+\subsection*{c) Niveles percentiles}
+
+Considerando que el ruido urbano tiene un car\'acter aleatorio, resulta conveniente 
+usar los \'{\i}ndices estad\'{\i}sticos llamados percentiles. Los que m\'as se utilizan son:
+\begin{itemize}
+\item $L_{10}:$ El nivel sonoro en dB que se sobrepasa durante el 10\% del tiempo de observaci\'on. 
+Por lo general corresponde a los niveles m\'as elevados
+\item $L_{90}:$ El nivel sonoro en dB que se sobrepasa durante el 90\% del tiempo de observaci\'on. Por lo general corresponde al nivel sonoro de fondo.
+\end{itemize}
+\subsection*{d) \'Indice de ruido de trafico ($TNI)$}
+Es un \'{\i}ndice obtenido de la combinaci\'on ponderada de $L_{10}$ y $L_{90}$, promediadas 
+a lo largo de un periodo de tiempo de 24 horas, de manera que:
+
+\begin{equation}
+TNI=4(L_{10}-L_{90})+L_{90}-30
+\end{equation}
+
+\section*{\underline{Objetivo de la pr\'actica}}
+
+C\'alculo de los diversos \'{\i}ndices de ruido urbano correspondientes a una serie de medidas 
+de niveles ac\'usticos registrados en la Plaza de Cuba de la ciudad de Toledo. Los 
+valores que se muestran en las tablas proporcionadas corresponden a promedios 
+diezminutales (en dB) a lo largo de una semana.
+
+En un documento word responde a las siguientes cuestiones:
+\begin{enumerate}
+\item Calcula los siguientes \'{\i}ndices para cada d\'{\i}a de la semana : 
+Nivel continuo equivalente ($L_{eq}$), nivel d\'{\i}a-tarde-noche ($L_{den}$),
+		junto con los niveles de d\'{\i}a ($L_d$), de tarde ($L_e$) y de noche ($L_n$) y el \'{\i}ndice de 
+ruido de tr\'afico ($TNI$) (adem\'as de los percentiles), y anota los resultados en una tabla como
+la siguiente:
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}|@{\hspace{0.6cm}}c@{\hspace{0.6cm}}|@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}|@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||}
+\hline
+	D\'{\i}a&\cellcolor{grey}{$L_{eq}$}&$L_d$&$L_e$&$L_n$&\cellcolor{grey}{$L_{den}$}&$L_{10}$&$L_{90}$&\cellcolor{grey}{$TNI$}\\
+\hline
+	Lunes&&&&&&&&\\
+\hline
+	Martes&&&&&&&&\\
+\hline
+	Mi\'ercoles&&&&&&&&\\
+\hline
+	Jueves&&&&&&&&\\
+\hline
+	Viernes&&&&&&&&\\
+\hline
+	S\'abado&&&&&&&&\\
+\hline
+	Domingo&&&&&&&&\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\item Comenta estos resultados. Especula sobre las diferencias entre los diferentes valores
+obtenidos para estos \'{\i}ndices, y la posible explicaci\'on sobre su evoluci\'on
+a lo largo de la semana. Representa las series temporales directas por si te sirve de ayuda.
+Intenta encontrar alg\'un otro \'{\i}ndice que pudiera expresar algo
+parecido al TNI. Puedes consultar la normativa/ordenanza de ruido de la ciudad de Toledo
+en \url{https://www.toledo.es/wp-content/uploads/2016/11/oca.pdf}, para completar tu
+an\'alisis y ver si se superan los umbrales marcados o no, y comentarlo en tu documento.
+\end{enumerate}
+\end{document}
