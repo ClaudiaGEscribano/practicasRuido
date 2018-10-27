@@ -1,10 +1,10 @@
 ---
 title: "Práctica de ruido"
 output:
-  word_document: default
   html_notebook: default
-  pdf_document: default
   html_document: default
+  pdf_document: default
+  word_document: default
 ---
 
 ## 1. INTRODUCCIÓN TEÓRICA
@@ -73,10 +73,102 @@ $$L_t=10 \cdot log(10^4+10^5+10^6) = 60.45 dB$$
 
 Esto supone que el resultado de la suma de varias fuentes sonoras es un nivel acústico muy próximo al de la fuente más intensa.
 
-
-
+**Pregunta**: ¿Podrías calcular en R el anterior ejemplo? Escribe el código a continuación
 
 El objetivo de la práctica es calcular el nivel de ruido equivalente para cada día de la semana.
+
+##3. Índices acústicos##
+
+El objetivo de estos índices es valorar de forma cuantitativa la posible molestia que provocan los ruidos ambientales de muy diversa procedencia, y por tanto de intensidades y frecuencias muy variables.
+
+\subsection*{a) Nivel continuo equivalente ($L_{eq}$):}
+
+Cuando se consideran niveles que varín temporalmente $L(t)$, como sería por ejemplo el ruido de tráfico rodado, se utiliza el llamado nivel continuo equivalente ($L_{eq}$), que se define como el nivel en $dB$ correspondiente al promedio de la cantidad de energía acústica variable durante un periodo de tiempo $T$, cuya ecuación matemática es:
+
+$$L_{eq}=10 \cdot log [ \frac{1}{T} \int_0^T 10^\frac{L(t)}{10} dt ]$$
+
+que se puede calcular de forma aproximada mediante la expresión:
+
+$$L_{eq}=10 \cdot log [ \frac{1}{T} \sum \left(t_i \cdot 10^\frac{L_i}{10} \right)]$$
+
+siendo $t_i$ los tiempos de observación durante los cuales el nivel sonoro $L_i$ se mantiene en un intervalo de $\pm$ 2 $dB$.
+
+\underline{\it Ejemplo:}
+
+¿Cuál es el nivel continuo equivalente correspondiente al ruido de tráfico observado a lo largo de un día en una determinada calle urbana con la siguiente distribución de niveles sonoros: 85 dB durante 4 horas, 90 dB durante 2 horas, 80 dB durante 10 horas y 65 dB durante 8 horas?
+
+Solución:
+
+$$L=10 \cdot log(\frac{4 \cdot 10^{8.5}+2 \cdot 10^9+ 10 \cdot 10^8 + 8 \cdot 10^{6.5}}{24})=82.52 dB$$
+
+
+\subsection*{b) Nivel díaa-tarde-noche ($L_{den}$)}
+
+Este criterio se establece a causa de la necesidad de evaluar de diferente formalos niveles de ruido urbano durante el día, la tarde y la la noche, penalizando los ruidos nocturnos por estimar que la molestia que producen es mayor. Su valor se calcula con la ecuación:
+
+$$L_{den}=10 \cdot log[\frac{12 \cdot 10^{L_d/10}+ 4 \cdot 10^{(L_e+5)/10} + 8 \cdot 10^{(L_n+10)/10}}{24}]$$
+
+
+donde $L_d$ representa el nivel sonoro equivalente para el periodo de día, $L_e$ para el periodo de tarde y $L_n$ para el periodo nocturno. 
+
+**Para saber exactamente los periodos correspondientes a cada tramo horario, consulta la ordenanza municipal de Toledo, por ejemplo, en su artículo 55.3, o en el Anexo I.A.1.**
+
+\subsection*{c) Niveles percentiles}
+
+Considerando que el ruido urbano tiene un carácter aleatorio, resulta conveniente usar los índices estad\'{\i}sticos llamados percentiles. Los que más se utilizan son:
+
+\begin{itemize}
+\item $L_{10}:$ El nivel sonoro en dB que se sobrepasa durante el 10\% del tiempo de observaci\'on. 
+Por lo general corresponde a los niveles m\'as elevados
+\item $L_{90}:$ El nivel sonoro en dB que se sobrepasa durante el 90\% del tiempo de observaci\'on. Por lo general corresponde al nivel sonoro de fondo.
+\end{itemize}
+\subsection*{d) \'Indice de ruido de trafico ($TNI)$}
+Es un \'{\i}ndice obtenido de la combinaci\'on ponderada de $L_{10}$ y $L_{90}$, promediadas 
+a lo largo de un periodo de tiempo de 24 horas, de manera que:
+
+$$TNI=4(L_{10}-L_{90})+L_{90}-30$$
+
+\section*{\underline{Objetivo de la pr\'actica}}
+
+Cálculo de los diversos índices de ruido urbano correspondientes a una serie de medidas de niveles acústicos registrados en la Plaza de Cuba de la ciudad de Toledo. Los valores que se muestran en las tablas proporcionadas corresponden a promedios diezminutales (en dB) a lo largo de una semana.
+
+En un documento word responde a las siguientes cuestiones:
+
+* Calcula los siguientes índices para cada día de la semana : 
+  + Nivel continuo equivalente ($L_{eq}$)
+  + Nivel día-tarde-noche ($L_{den}$) junto con los niveles de día ($L_d$), de tarde ($L_e$) y de noche ($L_n$)
+  + El índice de ruido de tráfico ($TNI$) (además de los percentiles), y anota los resultados en una tabla.
+
+[//]:\begin{table}[h]
+[//]:\begin{center}
+[//]:\begin{tabular}{|c||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}|@{\hspace{0.6cm}}c@{\hspace{0.6cm}}|@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}|@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||@{\hspace{0.6cm}}c@{\hspace{0.6cm}}||}
+[//]:\hline
+[//]:	D\'{\i}a&\cellcolor{grey}{$L_{eq}$}&$L_d$&$L_e$&$L_n$&\cellcolor{grey}{$L_{den}$}&$L_{10}$&$L_{90}$&\cellcolor{grey}{$TNI$}\\
+[//]:\hline
+[//]:}	Lunes&&&&&&&&\\
+[//]:\hline
+[//]:	Martes&&&&&&&&\\
+[//]:\hline
+[//]:	Mi\'ercoles&&&&&&&&\\
+[//]:\hline
+[//]:	Jueves&&&&&&&&\\
+[//]:\hline
+[//]:	Viernes&&&&&&&&\\
+[//]:\hline
+[//]:	S\'abado&&&&&&&&\\
+[//]:\hline
+[//]:	Domingo&&&&&&&&\\
+[//]:\hline
+[//]:\end{tabular}
+[//]:\end{center}
+[//]:\end{table}
+
+* Comenta estos resultados. Especula sobre las diferencias entre los diferentes valores
+obtenidos para estos índices, y la posible explicación sobre su evolución a lo largo de la semana. Representa las series temporales directas por si te sirve de ayuda.
+
+Intenta encontrar algún otro índice que pudiera expresar algo parecido al TNI. Puedes consultar la normativa/ordenanza de ruido de la ciudad de Toledo en \url{https://www.toledo.es/wp-content/uploads/2016/11/oca.pdf}, para completar tu análisis y ver si se superan los umbrales marcados o no, y comentarlo en tu documento.
+\end{enumerate}
+
 
 ##1. Cargo las librerías necesarias
 
