@@ -1,0 +1,39 @@
+Introducción a R
+========================================================
+author: Prácticas Radiación y Ruido
+date: Noviembre 2018
+autosize: true
+
+¿Qué es R?
+========================================================
+
+El entorno R puede ser definido como un conjunto de herramientas que, entre otras cosas, facilitan:
+
+- el manejo y el análisis de datos
+- la representación gráfica
+- un lenguaje de programación, R
+- el cálculo de funciones estadísticas
+
+<https://cran.r-project.org/>
+
+R Packages
+=======================================================
+
+R tiene actualmente más de 4000 paquetes disponibles.
+- Un paquete es un conjunto de funciones agrupadas en librerías
+- Todos los paquetes de R están disponibles
+
+
+Slide With Code
+========================================================
+
+```{r}
+summary(cars)
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```
