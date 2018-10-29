@@ -23,12 +23,120 @@ R tiene actualmente más de 4000 paquetes disponibles.
 - Un paquete es un conjunto de funciones agrupadas en librerías
 - Todos los paquetes de R están disponibles
 
+Primeros pasos
+=======================================================
 
-Slide With Code
+En R podemos definir 'objetos' y un conjunto de 'clases':
+
+* vectores
+* matrices
+* listas
+* data.frames
+* ...
+
+Cada uno de los objetos definidos en R pertenecerá a una clase.
+
+Primeros pasos
+=======================================================
+
+Creando un vector en R:
+
+```{r}
+x <- c(1, 3, 7, 8, 10)
+x
+```
+
+```{r}
+class(x)
+```
+
+Primeros pasos
+=======================================================
+Otras formas de crear vectores:
+
+```{r}
+x <- seq(1, 20, 2)
+x
+```
+
+```{r}
+class(x)
+```
+
+Primeros pasos
+=======================================================
+Creo una lista
+```{r}
+x <- seq(1, 20, 2)
+y <- c("a", "b")
+
+lista <- list(x, y)
+lista
+```
+
+```{r}
+class(lista)
+```
+
+Primeros pasos
+========================================================
+
+Cargo datos por defecto en R y los leo:
+```{r}
+data(cars)
+head(cars)
+```
+
+
+Primeros pasos
+========================================================
+
+¿qué clase de objeto es 'cars'?
+```{r}
+class(cars)
+```
+
+¿qué tamaño tiene 'cars'?
+```{r}
+dim(cars)
+```
+
+Primeros pasos
 ========================================================
 
 ```{r}
 summary(cars)
+```
+
+Primeros pasos
+========================================================
+
+¿Puedo extraer la primera columna?
+```{r}
+cars1 <- cars[,1]
+cars1
+```
+
+¿Puedo extraer las filas entre 15 y 30?
+```{r}
+carsR <- cars[15:30,]
+carsR
+```
+
+Primeros pasos
+========================================================
+Representación de los datos de 'cars':
+
+```{r, echo=TRUE}
+plot(cars)
+```
+
+Primeros pasos
+========================================================
+Representación de los datos de 'cars' con algunos cambios:
+
+```{r, echo=TRUE}
+plot(cars, type='p', col='red', main='cars')
 ```
 
 Slide With Plot
