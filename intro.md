@@ -16,12 +16,33 @@ El entorno R puede ser definido como un conjunto de herramientas que, entre otra
 
 <https://cran.r-project.org/>
 
+R es software libre con licencia GNU-GPL.
+
 R Packages
 =======================================================
 
-R tiene actualmente más de 4000 paquetes disponibles.
-- Un paquete es un conjunto de funciones agrupadas en librerías
-- Todos los paquetes de R están disponibles
+R tiene actualmente más de 6000 paquetes disponibles.
+
+- Un paquete es un conjunto de funciones agrupadas en librerías.
+- Todos los paquetes de R están disponibles.
+- Facilidad para encontrar documentacion. Comunidad activa.
+
+
+R Documentación
+=======================================================
+
+Algunos recursos
+
+- **Manuales**: An introduction to R  <https://cran.r-project.org/>
+- Foros: **stackoverflow**  <https://stackoverflow.com/>
+- Rbloggers
+- Recursos de expertos: <https://github.com/oscarperpinan/r-intro-eoi>
+
+Rstudio
+=======================================================
+
+![alt text](rstudio)
+
 
 Primeros pasos
 =======================================================
@@ -29,12 +50,14 @@ Primeros pasos
 En R podemos definir 'objetos' y un conjunto de 'clases':
 
 * vectores
-* matrices
 * listas
-* data.frames
 * ...
 
-Cada uno de los objetos definidos en R pertenecerá a una clase.
+Cada uno de los objetos definidos en R pertenecerá a una clase:
+
+* numérico
+* factor
+* data.frame
 
 Primeros pasos
 =======================================================
@@ -51,6 +74,7 @@ x
 [1]  1  3  7  8 10
 ```
 
+Podemos ver la clase del objeto que hemos creado utilizando la función class.
 
 ```r
 class(x)
@@ -159,6 +183,25 @@ dim(cars)
 Primeros pasos
 ========================================================
 
+Para obtener información sobre lo que hace una función:
+
+```r
+?head
+```
+
+La descripción de la función y cómo usarla nos aparece en la ventana inferior derecha si usamos Rstudio.
+
+* Puedes echar un vistazo a algunas funciones: 
+  - sum
+  - max 
+  - plot 
+  - tail 
+  - head 
+  - ...
+
+Primeros pasos
+========================================================
+
 
 ```r
 summary(cars)
@@ -226,7 +269,7 @@ Representación de los datos de 'cars':
 plot(cars)
 ```
 
-![plot of chunk unnamed-chunk-13](intro-figure/unnamed-chunk-13-1.png)
+![plot of chunk unnamed-chunk-14](intro-figure/unnamed-chunk-14-1.png)
 
 Primeros pasos
 ========================================================
@@ -237,9 +280,9 @@ Representación de los datos de 'cars' con algunos cambios:
 plot(cars, type='p', col='red', main='cars')
 ```
 
-![plot of chunk unnamed-chunk-14](intro-figure/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-15](intro-figure/unnamed-chunk-15-1.png)
 
 Slide With Plot
 ========================================================
 
-![plot of chunk unnamed-chunk-15](intro-figure/unnamed-chunk-15-1.png)
+![plot of chunk unnamed-chunk-16](intro-figure/unnamed-chunk-16-1.png)
