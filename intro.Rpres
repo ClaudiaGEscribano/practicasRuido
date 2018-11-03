@@ -69,7 +69,7 @@ x <- c(1, 3, 7, 8, 10)
 x
 ```
 
-Podemos ver la clase del objeto que hemos creado utilizando la función class.
+Podemos ver la clase del objeto que hemos creado utilizando la función *class*.
 ```{r}
 class(x)
 ```
@@ -128,6 +128,27 @@ dim(cars)
 Primeros pasos
 ========================================================
 
+¿Existe otra manera de conocer el número de filas del data.frame 'cars'?
+
+```{r}
+nrow(cars)
+```
+
+**¿Existe una función equivalente para el número de columnas?**
+
+Primeros pasos
+========================================================
+
+¿Puedo conocer el nombre de las variables del data.frame?
+
+```{r}
+names(cars)
+```
+
+**Encuentra otra función para conocer los nombres de las columnas en un data.frame o matriz**
+Primeros pasos
+========================================================
+
 Para obtener información sobre lo que hace una función:
 ```{r}
 ?head
@@ -167,13 +188,28 @@ carsR
 
 Primeros pasos
 ========================================================
+
+Una característica importante del lenguaje R es el indexado con **$**.
+
+Podemos acceder a las distintas variables de un data.frame por su nombre:
+
+```{r}
+cars$speed
+```
+
+```{r}
+cars$dist
+```
+
+Primeros pasos: representación
+========================================================
 Representación de los datos de 'cars':
 
 ```{r, echo=TRUE}
 plot(cars)
 ```
 
-Primeros pasos
+Primeros pasos: representación
 ========================================================
 Representación de los datos de 'cars' con algunos cambios:
 
@@ -181,9 +217,54 @@ Representación de los datos de 'cars' con algunos cambios:
 plot(cars, type='p', col='red', main='cars')
 ```
 
-Slide With Plot
+**Prueba a cambiar los títulos de los ejes**
+
+Primeros pasos: directorio de trabajo
 ========================================================
 
-```{r, echo=FALSE}
-plot(cars)
+Es necesario conocer la ubicación de nuestro trabajo. Para esto dos funciones serán de mucha utilidad: 
+
+* setwd()
+* getwd()
+
+**¿Podríais decirme qué hace cada una de ellas?**
+
+Primeros pasos: cargar datos
+========================================================
+
+R permite cargar datos desde ficheros .csv, .xls o directamente desde su dirección url.
+
+* Cargo un fichero de datos de ruido:
+
+```{r}
+ruidoLunes <- read.csv("data/lun_cuba_10min.csv", dec=',')
 ```
+
+**¿Qué clase de objeto he creado?**
+
+Primeros pasos: cargar datos
+========================================================
+
+Cargo un nuevo fichero de datos:
+
+```{r}
+ruidoMartes <- read.csv("data/mar_cuba_10min.csv", dec=',')
+```
+
+Función *cbind* y *rbind*:
+
+```{r}
+data <- rbind(ruidoLunes,ruidoMartes)
+```
+
+Primeros pasos: cargar datos
+========================================================
+
+Miro las dimensiones de 'data' frente a los archivos aislados.
+
+```{r}
+dim(ruidoMartes)
+dim(data)
+```
+
+**Une los ficheros de lunes y martes manteniendo el número de filas del objeto de salida igual al de entrada**

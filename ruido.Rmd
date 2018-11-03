@@ -174,74 +174,56 @@ Intenta encontrar algún otro índice que pudiera expresar algo parecido al TNI.
 ### 1. Cargo las librerías necesarias y leo los datos.
 
 ```{r}
-require("gdata")
-library(gdata)
+lunes <- read.csv("data/lun_cuba_10min.csv", header=FALSE, dec=',')
 ```
 
-Leo los archivos .xls que tengo en el directorio
+Observo el objeto creado *lunes*
 
 ```{r}
-rlun<-read.xls("lun_cuba_10min.xls",header=FALSE)
+head(lunes)
 ```
 
-opcion b)
-```{r}
-x <- read.csv("lun_cuba_10min.csv", header=FALSE, dec=',')
-```
 
-Observo el objeto creado *rlun*
-
-```{r}
-head(rlun)
-```
-
-```{r}
-head(x)
-```
-
-Pregunta:
+**Pregunta:**
 
 * ¿Qué significa el comando 'head'?
-* ¿Qué clase de objeto es *rlun*?
+* ¿Qué clase de objeto es *lunes*?
 
 
-Asigno los nombres a las columnas del 'data.frame'.
+### 2. Asigno los nombres a las columnas del 'data.frame'.
 ```{r}
-colnames(rlun) <- c("time", "intensidad")
-colnames(x) <- c("time", "intensidad")
+colnames(lunes) <- c("time", "intensidad")
 ```
+
 ### 3. Represento los datos:
 
 Utilizo la función base plot de R:
  
 ```{r}
-plot(x[1:144,2], type='b', ylab='intensidad', xlab='time index')
+plot(lunes[1:145,2], type='b', ylab='intensidad', xlab='time index')
 ```
 
 Como es una serie temporal, también puedo utilizar las funciones ts:
 
 ```{r}
-ts.plot(x[2], type='o', ylab='intensidad')
+ts.plot(lunes[2], type='o', ylab='intensidad')
 ```
 
-```{r}
-ts.plot(x[2], type='o', ylab='intensidad')
-```
 
 La función ts.plot considera el que el argumento que se le introduce es una series temporal y lo representa como tal. Esta función acepta como argumentos 'type' para cambiar el tipo de representación y distintos argumentos para insertar el título y el nombre en los ejes.
 
-* Pregunta: Haz diferentes pruebas del tipo de gráfica. Cambia colores o maneras de representar.
+**Pregunta: Haz diferentes pruebas del tipo de gráfica. Cambia colores o maneras de representar.**
 
 
-## 4. Cálculo de índices de ruido
+### 4. Cálculo de índices de ruido
 
-**Nivel de ruido equivalente diario**: Leqdiario
+**Nivel de ruido equivalente diario**: *Leqdiario*
 
-Para calcular Leq introduciré los valores de la expresión según los datos de 'x'.
+Para calcular Leq introduciré los valores de la expresión según los datos de 'lunes'.
 
 1. Introduzco el término exponencial:
 ```{r}
-t1<-10^(rlun[2]/10)
+t1<-10^(lunes[2]/10)
 ```
 
 2. Lo multiplico por 10
@@ -251,7 +233,7 @@ deltat<-10.
 
 3. Hago el sumatorio:
 ```{r}
-t2<-sum(deltat*t1)
+t2<-sum(deltat*t1, na.rm=TRUE)
 ```
 
 4. Calculo el logaritmo en base 10 y multiplico
@@ -266,24 +248,25 @@ leqlunes<-10*log10(1/(60*24)*t2)
 
 Cálculo del Leq diurno
 ```{r}
-t1d<-10^(rlun[43:114,2]/10)
-t2d<-sum(deltat*t1d)
+t1d<-10^(lunes[43:114,2]/10)
+t2d<-sum(deltat*t1d, na.rm=TRUE)
 leqdlunes<-10*log10(1/(60*12)*t2d)
 ```
+
 Cálculo del Leq de la tarde
 
 ```{r}
-t1t<-10^(rlun[115:138,2]/10)
-t2t<-sum(deltat*t1t)
+t1t<-10^(lunes[115:138,2]/10)
+t2t<-sum(deltat*t1t, na.rm=TRUE)
 leqtlunes<-10*log10(1/(60*4)*t2t)
 ```
 
 Cálculo del Leq nocturno
 
 ```{r}
-t1n1<-10^(rlun[1:42,2]/10)
-t1n2<-10^(rlun[139:144,2]/10)
-t2n<-sum(deltat*t1n1)+sum(deltat*t1n2)
+t1n1<-10^(lunes[1:42,2]/10)
+t1n2<-10^(lunes[139:144,2]/10)
+t2n<-sum(deltat*t1n1, na.rm=TRUE)+sum(deltat*t1n2, na.rm=TRUE)
 leqnlunes<-10*log10(1/(60*8)*t2n)
 ```
 

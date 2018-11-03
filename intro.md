@@ -74,7 +74,7 @@ x
 [1]  1  3  7  8 10
 ```
 
-Podemos ver la clase del objeto que hemos creado utilizando la función class.
+Podemos ver la clase del objeto que hemos creado utilizando la función *class*.
 
 ```r
 class(x)
@@ -183,6 +183,37 @@ dim(cars)
 Primeros pasos
 ========================================================
 
+¿Existe otra manera de conocer el número de filas del data.frame 'cars'?
+
+
+```r
+nrow(cars)
+```
+
+```
+[1] 50
+```
+
+**¿Existe una función equivalente para el número de columnas?**
+
+Primeros pasos
+========================================================
+
+¿Puedo conocer el nombre de las variables del data.frame?
+
+
+```r
+names(cars)
+```
+
+```
+[1] "speed" "dist" 
+```
+
+**Encuentra otra función para conocer los nombres de las columnas en un data.frame o matriz**
+Primeros pasos
+========================================================
+
 Para obtener información sobre lo que hace una función:
 
 ```r
@@ -262,6 +293,35 @@ carsR
 
 Primeros pasos
 ========================================================
+
+Una característica importante del lenguaje R es el indexado con **$**.
+
+Podemos acceder a las distintas variables de un data.frame por su nombre:
+
+
+```r
+cars$speed
+```
+
+```
+ [1]  4  4  7  7  8  9 10 10 10 11 11 12 12 12 12 13 13 13 13 14 14 14 14
+[24] 15 15 15 16 16 17 17 17 18 18 18 18 19 19 19 20 20 20 20 20 22 23 24
+[47] 24 24 24 25
+```
+
+
+```r
+cars$dist
+```
+
+```
+ [1]   2  10   4  22  16  10  18  26  34  17  28  14  20  24  28  26  34
+[18]  34  46  26  36  60  80  20  26  54  32  40  32  40  50  42  56  76
+[35]  84  36  46  68  32  48  52  56  64  66  54  70  92  93 120  85
+```
+
+Primeros pasos: representación
+========================================================
 Representación de los datos de 'cars':
 
 
@@ -269,9 +329,9 @@ Representación de los datos de 'cars':
 plot(cars)
 ```
 
-![plot of chunk unnamed-chunk-14](intro-figure/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-18](intro-figure/unnamed-chunk-18-1.png)
 
-Primeros pasos
+Primeros pasos: representación
 ========================================================
 Representación de los datos de 'cars' con algunos cambios:
 
@@ -280,9 +340,71 @@ Representación de los datos de 'cars' con algunos cambios:
 plot(cars, type='p', col='red', main='cars')
 ```
 
-![plot of chunk unnamed-chunk-15](intro-figure/unnamed-chunk-15-1.png)
+![plot of chunk unnamed-chunk-19](intro-figure/unnamed-chunk-19-1.png)
 
-Slide With Plot
+**Prueba a cambiar los títulos de los ejes**
+
+Primeros pasos: directorio de trabajo
 ========================================================
 
-![plot of chunk unnamed-chunk-16](intro-figure/unnamed-chunk-16-1.png)
+Es necesario conocer la ubicación de nuestro trabajo. Para esto dos funciones serán de mucha utilidad: 
+
+* setwd()
+* getwd()
+
+**¿Podríais decirme qué hace cada una de ellas?**
+
+Primeros pasos: cargar datos
+========================================================
+
+R permite cargar datos desde ficheros .csv, .xls o directamente desde su dirección url.
+
+* Cargo un fichero de datos de ruido:
+
+
+```r
+ruidoLunes <- read.csv("data/lun_cuba_10min.csv", dec=',')
+```
+
+**¿Qué clase de objeto he creado?**
+
+Primeros pasos: cargar datos
+========================================================
+
+Cargo un nuevo fichero de datos:
+
+
+```r
+ruidoMartes <- read.csv("data/mar_cuba_10min.csv", dec=',')
+```
+
+Función *cbind* y *rbind*:
+
+
+```r
+data <- rbind(ruidoLunes,ruidoMartes)
+```
+
+Primeros pasos: cargar datos
+========================================================
+
+Miro las dimensiones de 'data' frente a los archivos aislados.
+
+
+```r
+dim(ruidoMartes)
+```
+
+```
+[1] 144   2
+```
+
+```r
+dim(data)
+```
+
+```
+[1] 288   2
+```
+
+**Une los ficheros de lunes y martes manteniendo el número de filas del objeto de salida igual al de entrada**
