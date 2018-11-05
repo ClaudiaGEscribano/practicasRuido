@@ -174,7 +174,7 @@ Intenta encontrar algún otro índice que pudiera expresar algo parecido al TNI.
 ### 1. Cargo las librerías necesarias y leo los datos.
 
 ```{r}
-lunes <- read.csv("data/lun_cuba_10min.csv", header=FALSE, dec=',')
+lunes <- read.csv("data/lun_cuba_10min.csv", dec=',')
 ```
 
 Observo el objeto creado *lunes*
@@ -200,7 +200,7 @@ colnames(lunes) <- c("time", "intensidad")
 Utilizo la función base plot de R:
  
 ```{r}
-plot(lunes[1:145,2], type='b', ylab='intensidad', xlab='time index')
+plot(lunes[1:144,2], type='b', ylab='intensidad', xlab='time index')
 ```
 
 Como es una serie temporal, también puedo utilizar las funciones ts:
