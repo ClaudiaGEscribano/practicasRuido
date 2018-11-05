@@ -41,7 +41,7 @@ Algunos recursos
 Rstudio
 =======================================================
 
-![alt text](rstudio)
+![alt text](rstudio.png)
 
 
 Primeros pasos
@@ -107,6 +107,10 @@ class(x)
 [1] "numeric"
 ```
 
+**Busca otras formas de crear vectores**
+
+**Crea un vector entre 1 y 500 de tal manera que entre 1 y 250 vaya de 1 en 1 y entre 250 y 500 de 10 en 10**
+
 Primeros pasos
 =======================================================
 Creo una lista
@@ -135,6 +139,26 @@ class(lista)
 ```
 [1] "list"
 ```
+
+Primeros pasos
+=======================================================
+Creo una matriz
+
+
+```r
+z <- 1:12
+M <- matrix(data=z, nrow=4, ncol=3)
+M
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    5    9
+[2,]    2    6   10
+[3,]    3    7   11
+[4,]    4    8   12
+```
+
 
 Primeros pasos
 ========================================================
@@ -329,7 +353,7 @@ Representación de los datos de 'cars':
 plot(cars)
 ```
 
-![plot of chunk unnamed-chunk-18](intro-figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-19](intro-figure/unnamed-chunk-19-1.png)
 
 Primeros pasos: representación
 ========================================================
@@ -340,7 +364,7 @@ Representación de los datos de 'cars' con algunos cambios:
 plot(cars, type='p', col='red', main='cars')
 ```
 
-![plot of chunk unnamed-chunk-19](intro-figure/unnamed-chunk-19-1.png)
+![plot of chunk unnamed-chunk-20](intro-figure/unnamed-chunk-20-1.png)
 
 **Prueba a cambiar los títulos de los ejes**
 

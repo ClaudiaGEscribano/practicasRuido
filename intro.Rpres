@@ -41,7 +41,7 @@ Algunos recursos
 Rstudio
 =======================================================
 
-![alt text](rstudio)
+![alt text](rstudio.png)
 
 
 Primeros pasos
@@ -87,6 +87,10 @@ x
 class(x)
 ```
 
+**Busca otras formas de crear vectores**
+
+**Crea un vector entre 1 y 500 de tal manera que entre 1 y 250 vaya de 1 en 1 y entre 250 y 500 de 10 en 10**
+
 Primeros pasos
 =======================================================
 Creo una lista
@@ -101,6 +105,17 @@ lista
 ```{r}
 class(lista)
 ```
+
+Primeros pasos
+=======================================================
+Creo una matriz
+
+```{r}
+z <- 1:12
+M <- matrix(data=z, nrow=4, ncol=3)
+M
+```
+
 
 Primeros pasos
 ========================================================
