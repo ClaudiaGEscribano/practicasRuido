@@ -1,0 +1,121 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+  word_document: default
+---
+# Desarrollo de la práctica de ruido
+
+### 1. Cargo las librerías necesarias y leo los datos.
+
+```{r}
+lunes <- read.csv("data/lun_cuba_10min.csv", dec=',')
+```
+
+Observo el objeto creado *lunes*
+
+```{r}
+head(lunes)
+```
+
+
+### 2. Asigno los nombres a las columnas del 'data.frame'.
+```{r}
+colnames(lunes) <- c("time", "intensidad")
+```
+
+### 3. Represento los datos:
+
+Utilizo la función base plot de R:
+ 
+```{r}
+plot(lunes[1:144,2], type='b', ylab='intensidad', xlab='time index')
+```
+
+Como es una serie temporal, también puedo utilizar las funciones ts:
+
+```{r}
+ts.plot(lunes[2], type='o', ylab='intensidad')
+```
+
+
+La función ts.plot considera el que el argumento que se le introduce es una series temporal y lo representa como tal. Esta función acepta como argumentos 'type' para cambiar el tipo de representación y distintos argumentos para insertar el título y el nombre en los ejes.
+
+**Pregunta: Haz diferentes pruebas del tipo de gráfica. Cambia colores o maneras de representar.**
+
+
+### 4. Cálculo de índices de ruido
+
+**Nivel de ruido equivalente diario**: *Leqdiario*
+
+Para calcular Leq introduciré los valores de la expresión según los datos de 'lunes'.
+
+1. Introduzco el término exponencial:
+```{r}
+t1 <- 10^(lunes[2]/10)
+```
+
+2. Lo multiplico por 10
+```{r}
+deltat <- 10.
+```
+
+3. Hago el sumatorio:
+```{r}
+t2 <- sum(deltat*t1, na.rm=TRUE)
+```
+
+4. Calculo el logaritmo en base 10 y multiplico por 10
+```{r}
+leqlunes <- 10*log10(1/(60*24)*t2)
+```
+
+
+* Leq diurno: 43 a 114, de 7 a 19h: 12h
+* Leq tarde: 115 a 138:  19 a 23: 4 h
+* Leq nocturno: 1 a 42 y 139 a 144: 0 a 7 y 23 a 24: 8h
+
+Cálculo del Leq diurno
+```{r}
+t1d <- 10^(lunes[43:114,2]/10)
+t2d <- sum(deltat*t1d, na.rm=TRUE)
+leqdlunes <- 10*log10(1/(60*12)*t2d)
+```
+
+Cálculo del Leq de la tarde
+
+```{r}
+t1t <- 10^(lunes[115:138,2]/10)
+t2t <- sum(deltat*t1t, na.rm=TRUE)
+leqtlunes <- 10*log10(1/(60*4)*t2t)
+```
+
+Cálculo del Leq nocturno
+
+```{r}
+t1n1 <-10^(lunes[1:42,2]/10)
+t1n2 <-10^(lunes[139:144,2]/10)
+t2n <-sum(deltat*t1n1, na.rm=TRUE)+sum(deltat*t1n2, na.rm=TRUE)
+leqnlunes <-10*log10(1/(60*8)*t2n)
+```
+
+Cállculo del ruido equivalente total:
+
+```{r}
+ttd <- 10^(leqdlunes/10)
+ttt <- 10^((leqtlunes+5)/10)
+ttn <- 10^((leqnlunes+10)/10)
+ldn <- 10*log10((12*ttd+4*ttt+8*ttn)/24)
+
+```
+
+## 5. Cálculo de los percentiles:
+
+```{r}
+rlunesp90 <-quantile(lunes[,2],0.9)
+rlunesp10 <-quantile(lunes[,2],0.1)
+tni <-4*(rlunesp90-rlunesp10)+rlunesp10-30
+```
+
+
